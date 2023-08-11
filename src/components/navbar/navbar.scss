@@ -1,0 +1,144 @@
+.navbar {
+  //   position: fixed;
+  //   top: 0;
+  //   position: sticky;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  // background-color: rgb(245, 243, 243);
+  padding: 10px 20px;
+  height: 90px;
+  align-items: center;
+  box-sizing: border-box;
+  z-index: 99;
+  transition: 0.5s all ease;
+  border-bottom: 0.5px solid gainsboro;
+  // position: absolute;
+
+  &.active {
+    position: sticky;
+    // background-color: rgb(203, 201, 201);
+    background-color: rgb(245, 243, 243);
+    top: 0;
+  }
+  .logo {
+    flex: 2;
+  }
+  a {
+    text-decoration: none;
+  }
+  .middle {
+    display: flex;
+    gap: 10px;
+    flex: 2;
+    a {
+      color: black;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .left-nav {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    .scrolls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    p {
+      font-size: 14px;
+      color: gray;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    button {
+      border: none;
+      padding: 8px 14px;
+      background-color: black;
+      font-weight: bold;
+      cursor: pointer;
+      color: white;
+      font-size: 15px;
+      position: relative;
+    }
+  }
+}
+
+.cart-menu {
+  position: fixed;
+  // position: absolute;
+  overflow: auto;
+  width: 0;
+  min-height: 100%;
+  background-color: rgb(223, 220, 220);
+  // background-color: royalblue;
+  color: black;
+  top: 0;
+  right: 0;
+  overflow: hidden;
+  transition: 0.8s;
+  z-index: 33;
+  // padding: 30px;
+  // box-sizing: border-box;
+  .menu-container {
+    padding: 20px;
+    // position: relative;
+    // height: 100%;
+    .total {
+      color: orangered;
+    }
+    .menu-header {
+      display: flex;
+      justify-content: space-between;
+      h1 {
+        margin: 0;
+        padding: 0;
+        font-size: 40px;
+      }
+
+      button {
+        color: white;
+        border: none;
+        background-color: black;
+        font-size: 30px;
+        border-radius: 5px;
+        padding: 5px 15px;
+        cursor: pointer;
+      }
+    }
+    .menu-footer {
+      position: absolute;
+      margin-top: auto;
+      bottom: 10px;
+      // right: 10px;
+      // left: 10px;
+      width: 95%;
+
+      box-sizing: content-box;
+      display: flex;
+
+      // .menu-continue {
+      //   flex: 1;
+      // }
+      .menu-pay {
+        width: 100%;
+        border: none;
+        font-size: 30px;
+        padding: 10px 0;
+        color: white;
+        background-color: green;
+        cursor: pointer;
+        &.loading {
+          background-color: gray;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}

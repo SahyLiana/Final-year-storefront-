@@ -1,0 +1,18 @@
+.products-container {
+  max-width: 1400px;
+  margin: 40px auto;
+  p {
+    color: gray;
+    letter-spacing: 1px;
+  }
+  h1 {
+    font-size: 50px;
+    font-weight: 500;
+  }
+
+  select {
+    padding: 10px;
+    font-size: 15px;
+    border: 0.5px solid gainsboro;
+  }
+}

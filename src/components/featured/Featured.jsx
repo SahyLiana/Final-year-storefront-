@@ -1,0 +1,80 @@
+import React from "react";
+import "./featured.scss";
+import Card from "./Card";
+import Axios from "axios";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/navigation";
+
+import "swiper/css/pagination";
+
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
+function Featured({ myRef }) {
+  const [products, setProducts] = React.useState([]);
+
+  React.useEffect(() => {
+    const getFeaturedProducts = async () => {
+      const featuredProducts = await Axios.get(
+        "http://localhost:3000/api/products/",
+        {
+          params: {
+            featured: true,
+          },
+        }
+      );
+      // console.log(featuredProducts.data.products);
+      setProducts((prevProducts) => featuredProducts.data.products);
+    };
+    AOS.init({ duration: 500 });
+    getFeaturedProducts();
+  }, []);
+
+  const displayedProducts =
+    products.length > 0 &&
+    products.map((product, index) => {
+      return (
+        <SwiperSlide key={index}>
+          {/* <Link to={`/product/${product._id}`}> */}
+          <Card key={index} product={product} />
+          {/* </Link> */}
+        </SwiperSlide>
+      );
+    });
+  // console.log(displayedProducts);
+  return (
+    <div className="featured" data-aos="slide-up" ref={myRef}>
+      <div className="featured-header">
+        <p>Shop featured product</p>
+        <h1>FEATURED PRODUCTS</h1>
+        <div className="down-line"></div>
+      </div>
+
+      {/* <PaginatedItems itemsPerPage={4} /> */}
+      <Swiper
+        slidesPerView={3}
+        loop={true}
+        spaceBetween={30}
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
+        }}
+        // slidesPerGroupSkip={3}
+        slidesPerGroup={1}
+        // centeredSlides={true}
+        navigation={{ clickable: true }}
+        modules={[Navigation, Pagination, Autoplay]}
+        pagination={{ clickable: true }}
+        className="mySwiper"
+      >
+        {displayedProducts}
+      </Swiper>
+    </div>
+  );
+}
+
+export default Featured;

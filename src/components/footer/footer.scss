@@ -1,0 +1,87 @@
+.footer {
+  background-color: rgb(245, 243, 243);
+  .container {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    justify-content: space-between;
+    padding: 80px 0;
+    .logo {
+      flex: 2;
+      margin-right: auto;
+      a {
+        text-decoration: none;
+      }
+    }
+
+    .rigth-footer {
+      flex: 1;
+      display: flex;
+
+      h2 {
+        font-weight: 100;
+        font-size: 20px;
+      }
+
+      .category {
+        display: flex;
+        flex-direction: column;
+        margin-right: 55px;
+        gap: 5px;
+        a {
+          text-decoration: none;
+          color: gray;
+          font-size: 14px;
+          &:hover {
+            text-decoration: underline;
+          }
+          span {
+            color: orange;
+            font-weight: bolder;
+          }
+        }
+      }
+
+      .contacts {
+        font-size: 14px;
+        a {
+          text-decoration: none;
+          color: black;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+  hr {
+    height: 0px;
+    border: 0.1px solid gainsboro;
+  }
+
+  .footer-down {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 80px;
+    align-items: center;
+    max-width: 1400px;
+    margin: 20px auto 0 auto;
+    p {
+      color: gray;
+      font-size: 15px;
+    }
+
+    .socialMedia {
+      font-size: 25px;
+      display: flex;
+      gap: 10px;
+      a {
+        color: black;
+        transition: all 0.3s;
+        &:hover {
+          color: orange;
+        }
+      }
+    }
+  }
+}
