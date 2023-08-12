@@ -4,7 +4,8 @@ import { FaTruck } from "react-icons/fa";
 import { GoContainer } from "react-icons/go";
 import { BsShieldShaded } from "react-icons/bs";
 import { BiCartDownload } from "react-icons/bi";
-import Card from "./Card";
+// import Card from "./Card";
+const Card = React.lazy(() => import("./Card"));
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -41,7 +42,9 @@ function WhyUs({ myRef }) {
   }, []);
 
   const CardElts = whyArray.map((card, key) => (
-    <Card key={key} title={card.title} logo={card.logo} text={card.text} />
+    <React.Suspense>
+      <Card key={key} title={card.title} logo={card.logo} text={card.text} />
+    </React.Suspense>
   ));
 
   return (

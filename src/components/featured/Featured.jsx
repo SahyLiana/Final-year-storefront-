@@ -1,10 +1,11 @@
 import React from "react";
 import "./featured.scss";
-import Card from "./Card";
+// import Card from "./Card";
+const Card = React.lazy(() => import("./Card"));
 import Axios from "axios";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
@@ -39,8 +40,11 @@ function Featured({ myRef }) {
     products.map((product, index) => {
       return (
         <SwiperSlide key={index}>
+          <React.Suspense>
+            <Card key={index} product={product} />
+          </React.Suspense>
           {/* <Link to={`/product/${product._id}`}> */}
-          <Card key={index} product={product} />
+
           {/* </Link> */}
         </SwiperSlide>
       );

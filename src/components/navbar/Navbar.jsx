@@ -6,6 +6,10 @@ import Cart from "./Cart";
 import Axios from "axios";
 import Modal from "react-modal";
 import { useSnackbar, enqueueSnackbar } from "notistack";
+// const PaymentSubmit = React.lazy(() => import("./PaymentSubmit"));
+// import PaymentMenu from "./PaymentMenu";
+import PaymentSubmit from "./PaymentSubmit";
+const PaymentMenu = React.lazy(() => import("./PaymentMenu"));
 
 function Navbar({
   scrollToSection,
@@ -310,32 +314,15 @@ function Navbar({
         className="cart-menu"
         style={showMenu ? { width: "40%" } : { width: "0px" }}
       >
-        <form method="POST" onSubmit={handlePayment} className="menu-container">
-          <div className="menu-header">
-            <h1>Your Card</h1>
-            <button onClick={(e) => functionMenu(e)}>x</button>
-          </div>
-          <hr />
-          <div className="">
-            {cartElts.length > 0 ? (
-              displayedCartElts
-            ) : (
-              <h1 style={{ color: "gray" }}>No items</h1>
-            )}
-            {/* <h1 style={{ color: "gray" }}>Not items</h1> */}
-          </div>
-          <h2>
-            Total price:<span className="total">${total}</span>
-          </h2>
-
-          <div className="menu-footer">
-            {/* <button className="menu-continue">Continue Shopping</button> */}
-            {/* <button className={`menu-pay ${loading ? "loading" : null}`}>
-              {loading ? "Please wait..." : "Make Payment"}
-            </button> */}
-            <button className={`menu-pay `}>Make payment</button>
-          </div>
-        </form>
+        <React.Suspense>
+          <PaymentMenu
+            handlePayment={handlePayment}
+            functionMenu={functionMenu}
+            total={total}
+            cartElts={cartElts}
+            displayedCartElts={displayedCartElts}
+          />
+        </React.Suspense>
       </div>
       <Modal
         isOpen={modalIsOpen}
@@ -346,88 +333,15 @@ function Navbar({
         // className="modal-container"
         overlayClassName="overlay"
       >
-        <form onSubmit={handleSubmitPayment} className="modal-container">
-          <div className="modal-header">
-            <h2 ref={(_subtitle) => (subtitle = _subtitle)}>
-              Payement details:
-            </h2>
-            <button className="close" onClick={closeModal}>
-              x
-            </button>
-          </div>
-          <table>
-            <thead>
-              <tr>
-                <th>Product image</th>
-                <th>Product name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>{modalCarts}</tbody>
-            <tfoot>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td
-                  style={{
-                    fontWeight: "bold",
-                    color: "blue",
-                    fontSize: "20px",
-                    padding: "10px 0",
-                  }}
-                >
-                  ${total}
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-          {/* {modalCarts} */}
-          {/* <p style={{ textAlign: "right" }}>Total:${total}</p> */}
-          <h2>Your details:</h2>
-          <label htmlFor="name">
-            Name<sup style={{ color: "red" }}>*</sup>:
-          </label>
-          <br />
-          <input
-            onChange={handleChange}
-            name="name"
-            required
-            type="text"
-            id="name"
-          />
-          <br />
-          <label htmlFor="phone">
-            Phone number<sup style={{ color: "red" }}>*</sup>:
-          </label>
-          <br />
-          <input
-            onChange={handleChange}
-            name="phone"
-            required
-            type="text"
-            id="phone"
-          />
-          <br />
-          <label htmlFor="address">
-            Address<sup style={{ color: "red" }}>*</sup>::
-          </label>
-          <br />
-          <input
-            onChange={handleChange}
-            name="address"
-            required
-            type="text"
-            id="address"
-          />
-          <br />
-          <button className={`confirm ${loading && "loading"}`}>
-            {loading ? "Please wait" : "Confirm payment"}
-          </button>
-        </form>
+        <PaymentSubmit
+          handleSubmitPayment={handleSubmitPayment}
+          subtitle={subtitle}
+          closeModal={closeModal}
+          handleChange={handleChange}
+          loading={loading}
+          modalCarts={modalCarts}
+          total={total}
+        />
       </Modal>
     </>
   );

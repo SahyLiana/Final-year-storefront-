@@ -3,9 +3,12 @@ import "./home.scss";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Link, useOutletContext } from "react-router-dom";
-import Categories from "../categories/Categories";
-import Featured from "../featured/Featured";
-import WhyUs from "../whyus/WhyUs";
+// import Categories from "../categories/Categories";
+const Categories = React.lazy(() => import("../categories/Categories"));
+// import Featured from "../featured/Featured";
+const Featured = React.lazy(() => import("../featured/Featured"));
+// import WhyUs from "../whyus/WhyUs";
+const WhyUs = React.lazy(() => import("../whyus/WhyUs"));
 
 function Home() {
   const [home, categories, featured, whyUs] = useOutletContext();
@@ -27,9 +30,16 @@ function Home() {
           </div>
         </div>
       </div>
-      <Categories myRef={categories} />
-      <Featured myRef={featured} />
-      <WhyUs myRef={whyUs} />
+      <React.Suspense fallback={<>...</>}>
+        <Categories myRef={categories} />
+      </React.Suspense>
+      <React.Suspense fallback={<>...</>}>
+        <Featured myRef={featured} />
+      </React.Suspense>
+
+      <React.Suspense fallback={<>...</>}>
+        <WhyUs myRef={whyUs} />
+      </React.Suspense>
     </div>
   );
 }

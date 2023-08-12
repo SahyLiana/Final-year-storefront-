@@ -1,7 +1,10 @@
 import React from "react";
-import Footer from "./footer/Footer";
+// import Footer from "./footer/Footer";
+const Footer = React.lazy(() => import("./footer/Footer"));
 import { Outlet } from "react-router-dom";
-import Navbar from "./navbar/Navbar";
+
+// import Navbar from "./navbar/Navbar";
+const Navbar = React.lazy(() => import("./navbar/Navbar"));
 
 function Layout() {
   const home = React.useRef(null);
@@ -31,17 +34,27 @@ function Layout() {
   };
   return (
     <div>
-      <Navbar
-        scrollToSection={scrollToSection}
-        cartElts={cartElts}
-        setCartElts={setCartElts}
-        product={product}
-        setProduct={setProduct}
-        sections={{ home, categories, featured, whyUs, cartElts, setCartElts }}
-        scrollTop={scrollTop}
-        // total={total}
-        // setTotal={setTotal}
-      />
+      <React.Suspense>
+        <Navbar
+          scrollToSection={scrollToSection}
+          cartElts={cartElts}
+          setCartElts={setCartElts}
+          product={product}
+          setProduct={setProduct}
+          sections={{
+            home,
+            categories,
+            featured,
+            whyUs,
+            cartElts,
+            setCartElts,
+          }}
+          scrollTop={scrollTop}
+          // total={total}
+          // setTotal={setTotal}
+        />
+      </React.Suspense>
+
       <Outlet
         context={[
           home,
@@ -54,7 +67,9 @@ function Layout() {
           setProduct,
         ]}
       />
-      <Footer />
+      <React.Suspense>
+        <Footer />
+      </React.Suspense>
     </div>
   );
 }

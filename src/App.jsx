@@ -10,10 +10,11 @@ import Home from "./components/home/Home";
 // import Phones from "./components/phones/Phones";
 // import Computers from "./components/computers/Computers";
 // import Others from "./components/Others/Others";
-import Products from "./components/products/Products";
-// const Products = React.lazy(() => import("./components/products/Products"));
+// import Products from "./components/products/Products";
+const Products = React.lazy(() => import("./components/products/Products"));
 // import Navbar from "./components/navbar/Navbar";
 import Product from "./pages/product/Product";
+// const Product = React.lazy(() => import("./pages/product/Product"));
 import NotFound from "./NotFound";
 
 function App() {
@@ -24,20 +25,25 @@ function App() {
         <Route element={<Home />} path="/" />
         {/* <Route element={<Products />} path="products/:category" /> */}
 
-        {/* <Route
+        <Route
           element={
             <React.Suspense fallback={<h1>Loading...</h1>}>
               <Products />
             </React.Suspense>
           }
           path="products/:category"
-        /> */}
+        />
 
-        <Route element={<Products />} path="products/:category" />
+        {/* <Route element={<Products />} path="products/:category" /> */}
         <Route element={<Product />} path="product/:id" />
-        {/* <Route element={<Phones />} path="/phones" />
-        <Route element={<Computers />} path="/computers" />
-        <Route element={<Others />} path="/others" /> */}
+        {/* <Route
+          element={
+            <React.Suspense fallback={<h1>Loading...</h1>}>
+              <Product />
+            </React.Suspense>
+          }
+          path="product/:category"
+        /> */}
       </Route>
     )
   );

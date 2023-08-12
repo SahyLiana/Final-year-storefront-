@@ -4,9 +4,10 @@ import Axios from "axios";
 import "./products.scss";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import ProductList from "./ProductList";
-// const ProductList = React.lazy(() => import("./ProductList"));
-import Pagination from "./Pagination";
+// import ProductList from "./ProductList";
+const ProductList = React.lazy(() => import("./ProductList"));
+// import Pagination from "./Pagination";
+const Pagination = React.lazy(() => import("./Pagination"));
 
 function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -122,7 +123,9 @@ function Products() {
         <h1>Loading...</h1>
       ) : (
         <>
-          <ProductList productsData={currentPosts} />
+          <React.Suspense>
+            <ProductList productsData={currentPosts} />
+          </React.Suspense>
           <Pagination
             totalPosts={products.length}
             postsPerPage={postsPerPage}

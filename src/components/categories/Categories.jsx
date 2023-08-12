@@ -5,7 +5,8 @@ import "./categories.scss";
 import Computer from "../../assets/laptop.png";
 import Phones from "../../assets/CategoryPhone-min.jpg";
 import Others from "../../assets/gadget.png";
-import Category from "./Category";
+// import Category from "./Category";
+const Category = React.lazy(() => import("./Category"));
 import { Link } from "react-router-dom";
 
 function Categories({ myRef }) {
@@ -29,7 +30,9 @@ function Categories({ myRef }) {
 
   const displayedCag = categories.map((category, key) => (
     <Link key={key} to={`/products/${category.name}`}>
-      <Category category={category} />
+      <React.Suspense fallback={<>...</>}>
+        <Category category={category} />
+      </React.Suspense>
     </Link>
   ));
 
