@@ -51,6 +51,7 @@ function Featured({ myRef }) {
     });
   // console.log(displayedProducts);
   return (
+    // <div className="featured" data-aos="slide-up" ref={myRef}>
     <div className="featured" data-aos="slide-up" ref={myRef}>
       <div className="featured-header">
         <p>Shop featured product</p>
@@ -64,12 +65,16 @@ function Featured({ myRef }) {
         loop={true}
         spaceBetween={30}
         autoplay={{
-          delay: 5000,
+          delay: 3000,
+          // stopOnLastSlide: false,
+          // waitForTransition: true,
           disableOnInteraction: false,
+          // reverseDirection: true,
         }}
+        speed={1000}
         // slidesPerGroupSkip={3}
         slidesPerGroup={1}
-        // centeredSlides={true}
+        centeredSlides={true}
         navigation={{ clickable: true }}
         modules={[Navigation, Pagination, Autoplay]}
         pagination={{ clickable: true }}
