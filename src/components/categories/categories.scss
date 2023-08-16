@@ -10,6 +10,9 @@
   padding-bottom: 50px;
   margin-top: 20px;
   padding-top: 20px;
+  @media (max-width: "600px") {
+    height: auto;
+  }
 
   p {
     color: gray;
@@ -19,6 +22,10 @@
   h1 {
     font-size: 50px;
     margin: 0 40px 20px 0;
+    @media (max-width: "600px") {
+      text-align: center;
+      font-size: 30px;
+    }
   }
   a {
     text-decoration: none;
@@ -34,5 +41,6 @@
   .cards {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
   }
 }

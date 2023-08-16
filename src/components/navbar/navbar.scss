@@ -23,10 +23,15 @@
   z-index: 99;
   transition: 0.5s all ease;
   border-bottom: 0.5px solid gainsboro;
+
+  @media (max-width: 600px) {
+    // position: fixed;
+    background-color: white;
+  }
   // position: absolute;
 
   &.active {
-    position: sticky;
+    position: fixed;
     // background-color: rgb(203, 201, 201);
     background-color: rgb(245, 243, 243);
     top: 0;
@@ -47,6 +52,10 @@
         text-decoration: underline;
       }
     }
+
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
 
   .left-nav {
@@ -57,6 +66,9 @@
       display: flex;
       gap: 10px;
       align-items: center;
+      @media (max-width: 600px) {
+        display: none;
+      }
     }
     p {
       font-size: 14px;
@@ -67,7 +79,7 @@
       }
     }
 
-    button {
+    .cart-button {
       border: none;
       padding: 8px 14px;
       background-color: black;
@@ -76,6 +88,25 @@
       color: white;
       font-size: 15px;
       position: relative;
+
+      @media (max-width: 600px) {
+        display: none;
+      }
+    }
+
+    .cart-button-hidden {
+      @media (max-width: 600px) {
+        border: none;
+        padding: 8px 14px;
+        background-color: black;
+        font-weight: bold;
+        cursor: pointer;
+        color: white;
+        font-size: 15px;
+        display: block;
+        position: relative;
+      }
+      display: none;
     }
   }
 }
@@ -120,6 +151,10 @@
         border-radius: 5px;
         padding: 5px 15px;
         cursor: pointer;
+
+        @media (max-width: 600) {
+          display: none;
+        }
       }
     }
     .menu-footer {
@@ -149,6 +184,29 @@
         //   cursor: not-allowed;
         // }
       }
+    }
+  }
+}
+
+.hidden-nav {
+  display: none;
+  @media (max-width: 600px) {
+    position: fixed;
+    top: 90px;
+    z-index: 100;
+    display: flex;
+    background-color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0px 0;
+    a {
+      background-color: black;
+      color: white;
+      text-align: center;
+      padding: 5px;
+      text-decoration: none;
     }
   }
 }

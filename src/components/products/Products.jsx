@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import Axios from "axios";
+import { BiSearch } from "react-icons/bi";
 import "./products.scss";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -19,6 +20,7 @@ function Products() {
   const [postsPerPage, setPostsPerPage] = useState(6);
   const [loading, setLoading] = React.useState(false);
   const [selectedFilter, setSelectedFilter] = React.useState({ sorting: "" });
+  const [searchFilter, setSearchFilter] = React.useState("");
   let { category } = useParams();
   if (category === "All") {
     // setMyCategory(myCategory);
@@ -31,6 +33,11 @@ function Products() {
   // }
   // console.log(params);
   console.log(category);
+
+  const pageClicked = (page) => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    setCurrentPage(page);
+  };
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -64,9 +71,6 @@ function Products() {
   }, [category, selectedFilter.sorting]);
 
   // console.log(products);
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentPosts = products.slice(firstPostIndex, lastPostIndex);
 
   // function getNewSearchParams(key, value) {
   //   const sp = new URLSearchParams(searchParams);
@@ -98,27 +102,62 @@ function Products() {
 
   console.log(selectedFilter.sorting);
 
+  const handleFilterChange = (e) => {
+    setSearchFilter(e.target.value);
+  };
+
+  // console.log(searchFilter);
+
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  // const currentPosts = products.slice(firstPostIndex, lastPostIndex);
+  let currentPosts = [];
+
+  if (searchFilter.length > 0) {
+    currentPosts = products
+      .filter((product) => {
+        return product.name.toLowerCase().match(searchFilter.toLowerCase());
+      })
+      .slice(firstPostIndex, lastPostIndex);
+    // setProducts(currentPosts);
+  } else {
+    currentPosts = products.slice(firstPostIndex, lastPostIndex);
+    // setProducts(currentPosts);
+  }
+
   return (
     <div className="products-container">
       <p data-aos="fade-right">Home/{category === null ? "Shop" : category}</p>
       <h1 data-aos="fade-right">{category === null ? "Shop" : category}</h1>
-      <select
-        data-aos="fade-right"
-        onChange={handleChange}
-        name="sorting"
-        className="sorting"
-      >
-        <option value="" defaultValue="">
-          Default Sorting
-        </option>
-        <option value="price">Sort by price:low to high</option>
-        <option value="-price">Sort by price:high to low</option>
-        <option value="name">Sort by name:A to Z</option>
-        <option value="-name">Sort by name:Z to A</option>
-      </select>
-      {/* <React.Suspense fallback={<h1>Loading...</h1>}>
+      <div className="action-container">
+        <select
+          data-aos="fade-right"
+          onChange={handleChange}
+          name="sorting"
+          className="sorting"
+        >
+          <option value="" defaultValue="">
+            Default Sorting
+          </option>
+          <option value="price">Sort by price:low to high</option>
+          <option value="-price">Sort by price:high to low</option>
+          <option value="name">Sort by name:A to Z</option>
+          <option value="-name">Sort by name:Z to A</option>
+        </select>
+        {/* <React.Suspense fallback={<h1>Loading...</h1>}>
         <ProductList productsData={currentPosts} />
-      </React.Suspense> */}
+        </React.Suspense> */}
+        <div className="search-container">
+          <input
+            onChange={handleFilterChange}
+            placeholder="Search..."
+            type="text"
+            value={searchFilter}
+          />
+          <BiSearch style={{ fontSize: "20px", color: "gray" }} />
+        </div>
+      </div>
+
       {loading ? (
         <h1>Loading...</h1>
       ) : (
@@ -127,9 +166,11 @@ function Products() {
             <ProductList productsData={currentPosts} />
           </React.Suspense>
           <Pagination
-            totalPosts={products.length}
+            totalPosts={
+              searchFilter.length ? currentPosts.length : products.length
+            }
             postsPerPage={postsPerPage}
-            setCurrentPage={setCurrentPage}
+            setCurrentPage={pageClicked}
             currentPage={currentPage}
           />
         </>

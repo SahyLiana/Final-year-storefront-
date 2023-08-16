@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useLocation, useSearchParams, NavLink } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
 import "./navbar.scss";
+import { AiOutlineBars } from "react-icons/ai";
 import Cart from "./Cart";
 import Axios from "axios";
 import Modal from "react-modal";
@@ -11,16 +12,36 @@ import { useSnackbar, enqueueSnackbar } from "notistack";
 import PaymentSubmit from "./PaymentSubmit";
 const PaymentMenu = React.lazy(() => import("./PaymentMenu"));
 
+// function useHookWithRefCallback() {
+//   const ref = React.useRef(null);
+//   const setRef = React.useCallback(() => {
+//     if (ref.current) {
+//       console.log(ref.current.width);
+//     }
+
+//     // ref.current = node;
+//     return ref.current;
+//   }, []);
+
+//   return [setRef];
+// }
+
 function Navbar({
   scrollToSection,
   sections,
   scrollTop,
   cartElts,
   setCartElts,
+  // ref,
   // product,
   //  setProduct,
 }) {
   console.log(`There are ${cartElts.length} elements(Navbar) `);
+
+  // const [ref] = useHookWithRefCallback();
+  // console.log([ref]);
+  // const ref = React.useRef(null);
+  const [showHiddenMenu, setShowHiddenMenu] = React.useState(false);
 
   const [sticky, setSticky] = React.useState(false);
   //const [searchParams, setSearchParams] = useSearchParams();
@@ -32,6 +53,22 @@ function Navbar({
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [myDetails, setMyDetails] = React.useState({});
+  const [mywidth, setWidth] = React.useState(window.innerWidth);
+
+  // React.useLayoutEffect(() => {
+  //   console.log("Layout effect");
+  //   console.log("Width is");
+  //   console.log(mywidth);
+  //   console.log(ref.current);
+  //   // console.log(ref.current);
+  //   console.log("Width ref.current");
+  //   console.log(ref.current.width);
+  //   setWidth(ref.current.width);
+  // }, []);
+
+  // console.log("From window");
+  // console.log(mywidth);
+
   function openModal() {
     setIsOpen(true);
   }
@@ -73,11 +110,63 @@ function Navbar({
   let total = myTotal();
   // console.log(location.pathname);
 
-  const isSticky = () => {
-    window.scrollY > 95 ? setSticky(true) : setSticky(false);
-  };
+  // const isSticky = () => {
+  //   // if (mywidth > 600) {
+  //   //   console.log("Width");
+  //   //   console.log(width);
+  //   window.scrollY > 95 ? setSticky(true) : setSticky(false);
+  //   //}
+  // };
+
+  // React.useEffect(() => {
+  //   console.log("Width inside useEffect is");
+  //   console.log(mywidth);
+  //   function handleWindowResize() {
+  //     // if(ref.current?)
+  //     // console.log(ref.current);
+  //     // console.log(ref.current.width);
+  //     // setWidth(ref.current.width);
+  //     // setWidth(ref.current ? ref.current.width : 0);
+  //     setWidth(window.innerWidth);
+  //   }
+  //   window.addEventListener("resize", handleWindowResize);
+
+  //   return () => {
+  //     window.removeEventListener("resize", handleWindowResize);
+  //   };
+  // }, []);
+
+  // const setRef = React.useCallback(() => {
+  //   console.log("Usecallback");
+  //   console.log(mywidth);
+  //   setWidth(ref.current.width);
+  //   // if(ref.current.width>600){
+
+  //   // }
+  // }, []);
+
+  // setRef();
 
   React.useEffect(() => {
+    const isSticky = () => {
+      // if (mywidth > 600) {
+      //   console.log("Width");
+      //   console.log(mywidth);
+      //   console.log("Height is");
+      //   console.log(window.scrollY);
+      // window.scrollY > 95 ? setSticky(true) : setSticky(false);
+      if (window.innerWidth > 600) {
+        if (window.scrollY > 95) {
+          console.log("Set it to true");
+          setSticky(true);
+        } else {
+          setSticky(false);
+        }
+      } else {
+        setSticky(true);
+      }
+    };
+    //};
     window.addEventListener("scroll", isSticky);
 
     return () => {
@@ -183,6 +272,8 @@ function Navbar({
 
   Modal.setAppElement("#root");
 
+  // console.log(`The sticky is ${sticky}`);
+
   const modalCarts = cartElts.map((cart, key) => {
     return (
       <tr key={key}>
@@ -232,6 +323,7 @@ function Navbar({
 
   return (
     <>
+      {/* <h1>{width}</h1> */}
       <div className={sticky ? "navbar active" : "navbar"}>
         <div className="logo">
           <Link style={{ display: "block" }} to="/">
@@ -284,7 +376,7 @@ function Navbar({
           >
             OTHERS
           </NavLink>
-          <BiSearch />
+          {/* <BiSearch /> */}
         </div>
 
         <div className="left-nav">
@@ -301,14 +393,61 @@ function Navbar({
             </div>
           )}
 
-          <p>Login</p>
+          {/* <p>Login</p> */}
           {showMenu === false && (
-            <button onClick={(e) => functionMenu(e)}>
+            <button className="cart-button" onClick={(e) => functionMenu(e)}>
               My Cart ({cartElts.length})
             </button>
           )}
+
+          <button
+            onClick={(e) => setShowHiddenMenu((prev) => !prev)}
+            className="cart-button-hidden"
+          >
+            <AiOutlineBars />
+            {/* asdfads */}
+          </button>
         </div>
       </div>
+      {/* <div
+        style={{
+          position: "relative",
+          height: "1px",
+          backgroundColor: "red",
+          width: "100%",
+          zIndex: "1000",
+          bottom: "0",
+        }}
+      ></div> */}
+      {showHiddenMenu && (
+        <div className="hidden-nav">
+          <NavLink
+            style={({ isActive }) => (isActive ? myStyle : null)}
+            to={`products/All`}
+          >
+            SHOP ALL
+          </NavLink>
+          {/* <NavLink to={`products/${getNewSearchParams("category", "Phones")}`}>
+          PHONES
+        </NavLink> */}
+          <NavLink
+            style={({ isActive }) => (isActive ? myStyle : null)}
+            to={`products/Phones`}
+          >
+            PHONES
+          </NavLink>
+          {/* <NavLink to={`products/${getNewSearchParams("category", "Computers")}`}>
+          COMPUTERS
+        </NavLink> */}
+          <NavLink
+            style={({ isActive }) => (isActive ? myStyle : null)}
+            to={`products/Computers`}
+          >
+            COMPUTERS
+          </NavLink>
+        </div>
+      )}
+
       <div
         ref={menuEl}
         className="cart-menu"

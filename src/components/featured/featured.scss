@@ -17,6 +17,10 @@
     h1 {
       font-size: 50px;
       margin: 0 40px 20px 0;
+      @media (max-width: "600px") {
+        text-align: center;
+        font-size: 25px;
+      }
     }
     .down-line {
       height: 1px;
@@ -33,6 +37,17 @@
     margin: 0 auto;
     height: 500px;
     padding: 10px 10px 40px 10px;
+
+    .swiper-button-next {
+      @media (max-width: 600px) {
+        display: none;
+      }
+    }
+    .swiper-button-prev {
+      @media (max-width: 600px) {
+        display: none;
+      }
+    }
     // background-color: ghostwhite;
   }
 }

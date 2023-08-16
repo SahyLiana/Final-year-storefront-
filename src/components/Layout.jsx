@@ -7,6 +7,7 @@ import { Outlet } from "react-router-dom";
 const Navbar = React.lazy(() => import("./navbar/Navbar"));
 
 function Layout() {
+  // const ref = React.useRef();
   const home = React.useRef(null);
   const categories = React.useRef(null);
   const featured = React.useRef(null);
@@ -36,6 +37,7 @@ function Layout() {
     <div>
       <React.Suspense>
         <Navbar
+          // ref={ref}
           scrollToSection={scrollToSection}
           cartElts={cartElts}
           setCartElts={setCartElts}

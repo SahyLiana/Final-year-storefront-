@@ -62,6 +62,20 @@ function Featured({ myRef }) {
       {/* <PaginatedItems itemsPerPage={4} /> */}
       <Swiper
         slidesPerView={3}
+        breakpoints={{
+          "@0.00": {
+            slidesPerView: 1,
+            // modules: [Autoplay],
+            navigation: false,
+          },
+          "@0.75": {
+            slidesPerView: 3,
+            // modules: [Autoplay],
+
+            navigation: false,
+            spaceBetween: 20,
+          },
+        }}
         loop={true}
         spaceBetween={30}
         autoplay={{
@@ -85,5 +99,8 @@ function Featured({ myRef }) {
     </div>
   );
 }
+
+//React apex chart
+//RuChart
 
 export default Featured;
