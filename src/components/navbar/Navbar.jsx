@@ -1,8 +1,9 @@
 import React from "react";
 import { Link, useLocation, useSearchParams, NavLink } from "react-router-dom";
-import { BiSearch } from "react-icons/bi";
+// import { BiSearch } from "react-icons/bi";
 import "./navbar.scss";
 import { AiOutlineBars } from "react-icons/ai";
+import { MdProductionQuantityLimits } from "react-icons/Md";
 import Cart from "./Cart";
 import Axios from "axios";
 import Modal from "react-modal";
@@ -482,6 +483,12 @@ function Navbar({
           total={total}
         />
       </Modal>
+      <button className="stick-cart">
+        <span style={{ zIndex: "1" }}>
+          <MdProductionQuantityLimits />
+        </span>
+        <span className="cart-num">{cartElts.length}</span>
+      </button>
     </>
   );
 }
