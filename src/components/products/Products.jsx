@@ -28,10 +28,7 @@ function Products() {
   } else {
     category = category;
   }
-  //W} else {
-  // setMyCategory(null);
-  // }
-  // console.log(params);
+
   console.log(category);
 
   const pageClicked = (page) => {
@@ -69,8 +66,6 @@ function Products() {
 
     getData();
   }, [category, selectedFilter.sorting]);
-
-  // console.log(products);
 
   // function getNewSearchParams(key, value) {
   //   const sp = new URLSearchParams(searchParams);

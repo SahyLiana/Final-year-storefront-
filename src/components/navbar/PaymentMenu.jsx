@@ -14,23 +14,18 @@ function PaymentMenu({
         <button onClick={(e) => functionMenu(e)}>x</button>
       </div>
       <hr />
-      <div className="">
+      <div className="total-price">
         {cartElts.length > 0 ? (
           displayedCartElts
         ) : (
           <h1 style={{ color: "gray" }}>No items</h1>
         )}
-        {/* <h1 style={{ color: "gray" }}>Not items</h1> */}
       </div>
       <h2>
         Total price:<span className="total">${total}</span>
       </h2>
 
       <div className="menu-footer">
-        {/* <button className="menu-continue">Continue Shopping</button> */}
-        {/* <button className={`menu-pay ${loading ? "loading" : null}`}>
-      {loading ? "Please wait..." : "Make Payment"}
-    </button> */}
         <button className={`menu-pay `}>Make payment</button>
       </div>
     </form>

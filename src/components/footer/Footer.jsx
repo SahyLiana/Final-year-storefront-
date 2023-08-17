@@ -49,18 +49,9 @@ function Footer() {
       <div className="container">
         <div className="logo">
           <Link style={{ display: "block" }} to="/">
-            <span
-              style={{
-                fontFamily: "'Brush Script MT', cursive",
-                fontSize: "50px",
-                fontWeight: "bold",
-                color: "black",
-              }}
-            >
-              FindI
-            </span>{" "}
+            <span className="brand">FindI</span>
             <br />
-            <span style={{ fontSize: "17px", color: "gray" }}>Store</span>
+            <span className="store">Store</span>
           </Link>
         </div>
         <div className="rigth-footer">

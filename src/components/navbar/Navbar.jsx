@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link, useLocation, useSearchParams, NavLink } from "react-router-dom";
 // import { BiSearch } from "react-icons/bi";
 import "./navbar.scss";
@@ -8,8 +8,6 @@ import Cart from "./Cart";
 import Axios from "axios";
 import Modal from "react-modal";
 import { useSnackbar, enqueueSnackbar } from "notistack";
-// const PaymentSubmit = React.lazy(() => import("./PaymentSubmit"));
-// import PaymentMenu from "./PaymentMenu";
 import PaymentSubmit from "./PaymentSubmit";
 const PaymentMenu = React.lazy(() => import("./PaymentMenu"));
 
@@ -33,9 +31,6 @@ function Navbar({
   scrollTop,
   cartElts,
   setCartElts,
-  // ref,
-  // product,
-  //  setProduct,
 }) {
   console.log(`There are ${cartElts.length} elements(Navbar) `);
 
@@ -76,7 +71,7 @@ function Navbar({
 
   function afterOpenModal() {
     document.body.style.overflow = "hidden";
-    subtitle.style.color = "blue";
+    // subtitle.style.color = "blue";
   }
 
   function closeModal() {
@@ -88,7 +83,7 @@ function Navbar({
 
   const customStyles = {
     content: {
-      top: "50%",
+      top: "55%",
       left: "50%",
       right: "auto",
       bottom: "auto",
@@ -111,14 +106,6 @@ function Navbar({
   let total = myTotal();
   // console.log(location.pathname);
 
-  // const isSticky = () => {
-  //   // if (mywidth > 600) {
-  //   //   console.log("Width");
-  //   //   console.log(width);
-  //   window.scrollY > 95 ? setSticky(true) : setSticky(false);
-  //   //}
-  // };
-
   // React.useEffect(() => {
   //   console.log("Width inside useEffect is");
   //   console.log(mywidth);
@@ -136,16 +123,6 @@ function Navbar({
   //     window.removeEventListener("resize", handleWindowResize);
   //   };
   // }, []);
-
-  // const setRef = React.useCallback(() => {
-  //   console.log("Usecallback");
-  //   console.log(mywidth);
-  //   setWidth(ref.current.width);
-  //   // if(ref.current.width>600){
-
-  //   // }
-  // }, []);
-
   // setRef();
 
   React.useEffect(() => {
@@ -184,24 +161,11 @@ function Navbar({
     setShowMenu((prev) => !prev);
   };
 
-  // function getNewSearchParams(key, value) {
-  //   const sp = new URLSearchParams(searchParams);
-  //   if (value === null) {
-  //     sp.delete(key);
-  //   } else {
-  //     sp.set(key, value);
-  //   }
-  //   // console.log(sp.toString());
-  //   return `?${sp.toString()}`;
-  // }
-
   if (showMenu) {
-    // document.body.style.backgroundColor = "black";
     document.body.style.overflowY = "hidden";
     document.body.style.marginRight = "40%";
     document.body.style.transition = "0.8s";
   } else {
-    // document.body.style.backgroundColor = "";
     document.body.style.overflowY = "scroll";
     document.body.style.marginRight = "0%";
     document.body.style.transition = "0.8s";
@@ -242,31 +206,27 @@ function Navbar({
     console.log(cartElts);
 
     if (cartElts.length > 0) {
-      //try {
-      // const buyProduct = await Axios.patch(
-      //   "http://localhost:3000/api/products/payments",
-      //   {
-      //     myCarts: cartElts,
-      //   }
-      // );
-      // enqueueSnackbar("Payment succeeded", {
-      //   variant: "success",
-      // });
-      // setCartElts([]);
       setShowMenu(false);
       openModal();
-      //} catch (error) {
-      //enqueueSnackbar(`Payment failed!!!${error.response.data.msg}`, {
-      //variant: "error",
-      //});
-      // console.log(error);
-    }
-    //finally {
-    // setLoading(false);
-    // }
-    // }
-    else {
-      enqueueSnackbar("Your cart is empty", { variant: "error" });
+    } else {
+      enqueueSnackbar("Your cart is empty", {
+        variant: "error",
+        action: (key) => (
+          <Fragment>
+            <button
+              style={{
+                color: "white",
+                border: "0.5px white solid",
+                backgroundColor: "transparent",
+              }}
+              size="small"
+              onClick={() => closeSnackbar(key)}
+            >
+              x
+            </button>
+          </Fragment>
+        ),
+      });
       setLoading(false);
     }
   };
@@ -308,12 +268,42 @@ function Navbar({
           myDetails: myDetails,
         }
       );
-      enqueueSnackbar("Payment success", {
+      enqueueSnackbar("Paymen success", {
         variant: "success",
+        action: (key) => (
+          <Fragment>
+            <button
+              style={{
+                color: "white",
+                border: "0.5px white solid",
+                backgroundColor: "transparent",
+              }}
+              size="small"
+              onClick={() => closeSnackbar(key)}
+            >
+              x
+            </button>
+          </Fragment>
+        ),
       });
     } catch (error) {
-      enqueueSnackbar(`Payment failed!!!}`, {
+      enqueueSnackbar("Payment failed", {
         variant: "error",
+        action: (key) => (
+          <Fragment>
+            <button
+              style={{
+                color: "white",
+                border: "0.5px white solid",
+                backgroundColor: "transparent",
+              }}
+              size="small"
+              onClick={() => closeSnackbar(key)}
+            >
+              x
+            </button>
+          </Fragment>
+        ),
       });
     } finally {
       setCartElts([]);
@@ -324,7 +314,6 @@ function Navbar({
 
   return (
     <>
-      {/* <h1>{width}</h1> */}
       <div className={sticky ? "navbar active" : "navbar"}>
         <div className="logo">
           <Link style={{ display: "block" }} to="/">
@@ -377,7 +366,6 @@ function Navbar({
           >
             OTHERS
           </NavLink>
-          {/* <BiSearch /> */}
         </div>
 
         <div className="left-nav">
@@ -394,8 +382,7 @@ function Navbar({
             </div>
           )}
 
-          {/* <p>Login</p> */}
-          {showMenu === false && (
+          {!showMenu && (
             <button className="cart-button" onClick={(e) => functionMenu(e)}>
               My Cart ({cartElts.length})
             </button>
@@ -406,20 +393,9 @@ function Navbar({
             className="cart-button-hidden"
           >
             <AiOutlineBars />
-            {/* asdfads */}
           </button>
         </div>
       </div>
-      {/* <div
-        style={{
-          position: "relative",
-          height: "1px",
-          backgroundColor: "red",
-          width: "100%",
-          zIndex: "1000",
-          bottom: "0",
-        }}
-      ></div> */}
       {showHiddenMenu && (
         <div className="hidden-nav">
           <NavLink
@@ -452,7 +428,13 @@ function Navbar({
       <div
         ref={menuEl}
         className="cart-menu"
-        style={showMenu ? { width: "40%" } : { width: "0px" }}
+        style={
+          showMenu
+            ? window.innerWidth > 600
+              ? { width: "40%" }
+              : { width: "100%" }
+            : { width: "0px" }
+        }
       >
         <React.Suspense>
           <PaymentMenu
@@ -483,12 +465,14 @@ function Navbar({
           total={total}
         />
       </Modal>
-      <button className="stick-cart">
-        <span style={{ zIndex: "1" }}>
-          <MdProductionQuantityLimits />
-        </span>
-        <span className="cart-num">{cartElts.length}</span>
-      </button>
+      {!showMenu && (
+        <button className="stick-cart" onClick={(e) => functionMenu(e)}>
+          <span style={{ zIndex: "1" }}>
+            <MdProductionQuantityLimits />
+          </span>
+          <span className="cart-num">{cartElts.length}</span>
+        </button>
+      )}
     </>
   );
 }

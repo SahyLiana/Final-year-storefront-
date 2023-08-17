@@ -46,7 +46,6 @@ function Categories({ myRef }) {
       <div className="down-line"></div>
       <div className="cards">{displayedCag}</div>
     </div>
-    // <p>Categories</p>
   );
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import "./cart.scss";
+// import "./cart.scss";
 
 function Cart({ cart, removeElt, totalArray, setTotalArray }) {
   // const [total, setTotal] = React.useState(0);
@@ -17,9 +17,10 @@ function Cart({ cart, removeElt, totalArray, setTotalArray }) {
           {cart.name}:<span className="price">${cart.price}</span>
         </h2>
         <p>Quantity:x{cart.nb}</p>
-        {/* <p>Individual total:${cart.indTotal}</p> */}
       </div>
-      <button onClick={() => removeElt(cart._id)}>Remove</button>
+      <button id="remove" onClick={() => removeElt(cart._id)}>
+        Remove
+      </button>
     </div>
   );
 }

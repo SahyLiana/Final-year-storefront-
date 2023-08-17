@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "./product.scss";
 import Axios from "axios";
 import {
@@ -139,11 +139,67 @@ function Product() {
 
       // setCartElts((prevCart) => myCarts);
       console.log(myCarts[myCarts.length - 1]);
-      enqueueSnackbar("Product added to cart", { variant: "success" });
+      enqueueSnackbar("Product added to cart", {
+        variant: "success",
+        action: (key) => (
+          <Fragment>
+            <button
+              style={{
+                color: "white",
+                border: "0.5px white solid",
+                backgroundColor: "transparent",
+              }}
+              size="small"
+              onClick={() => closeSnackbar(key)}
+            >
+              x
+            </button>
+          </Fragment>
+        ),
+      });
     } else {
       enqueueSnackbar("Please input the number of product", {
         variant: "error",
+        action: (key) => (
+          <Fragment>
+            <button
+              style={{
+                color: "white",
+                border: "0.5px white solid",
+                backgroundColor: "transparent",
+              }}
+              size="small"
+              onClick={() => closeSnackbar(key)}
+            >
+              x
+            </button>
+          </Fragment>
+        ),
       });
+      // const key = enqueueSnackbar("Please input the number of product", {
+      //   // onClick: () => {
+      //   //   closeSnackbar(key);
+      //   // },
+      //   variant: "error",
+      // });
+      //   enqueueSnackbar("Please input the number of product", {
+      //     variant: "error",
+      //     action: (key) => (
+      //       <Fragment>
+      //         <Button
+      //           size="small"
+      //           onClick={() =>
+      //             alert(`Clicked on action of snackbar with id: ${key}`)
+      //           }
+      //         >
+      //           Detail
+      //         </Button>
+      //         <Button size="small" onClick={() => closeSnackbar(key)}>
+      //           Dismiss
+      //         </Button>
+      //       </Fragment>
+      //     ),
+      //   });
     }
 
     setDisplayQty(quantity.quantity);
@@ -189,7 +245,7 @@ function Product() {
             onChange={handleChange}
             type="number"
             name="quantity"
-            min="0"
+            min={0}
           />
           <button
             disabled={product.quantity === 0}
