@@ -47,8 +47,6 @@ function PaymentSubmit({
           </tr>
         </tfoot>
       </table>
-      {/* {modalCarts} */}
-      {/* <p style={{ textAlign: "right" }}>Total:${total}</p> */}
       <h2>Your details:</h2>
       <label htmlFor="name">
         Name<sup style={{ color: "red" }}>*</sup>:
@@ -75,7 +73,12 @@ function PaymentSubmit({
       />
       <br />
       <label htmlFor="address">
-        Address<sup style={{ color: "red" }}>*</sup>:
+        Address
+        <span style={{ fontSize: "10px", color: "gray" }}>
+          (You can pick from our google map and copy the exact address or type
+          manually)
+        </span>
+        <sup style={{ color: "red" }}>*</sup>:
       </label>
       <br />
       <input
@@ -85,6 +88,21 @@ function PaymentSubmit({
         type="text"
         id="address"
       />
+      <br />
+      <div className="mapouter">
+        <div className="gmap_canvas">
+          <iframe
+            width="100%"
+            // height="400"
+            frameborder="0"
+            scrolling="no"
+            marginheight="0"
+            marginwidth="0"
+            id="gmap_canvas"
+            src="https://maps.google.com/maps/?width=523.4&amp;height=400&amp;hl=en&amp;q=KampalaUniversity&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+          ></iframe>
+        </div>
+      </div>
       <br />
       <button className={`confirm ${loading && "loading"}`}>
         {loading ? "Please wait" : "Confirm payment"}

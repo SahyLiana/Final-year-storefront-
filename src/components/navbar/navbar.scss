@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  // overflow-y: hidden;
+  overflow-y: hidden;
   background-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -339,6 +339,10 @@
     width: 400px;
     border-radius: 5px;
     border: 0.5px gainsboro solid;
+    &:focus {
+      outline: 0.5px orange solid;
+      border: none;
+    }
     @media (max-width: 600px) {
       width: 200px;
     }
@@ -381,6 +385,16 @@
   label {
     @media (max-width: 600px) {
       font-size: 12px;
+    }
+  }
+
+  iframe {
+    height: 400px;
+    @media (max-width: 600px) {
+      height: 200px;
+      zoom: 0;
+      // -moz-transform: scale(1);
+      // -moz-transform-origin: 0 0;
     }
   }
 }

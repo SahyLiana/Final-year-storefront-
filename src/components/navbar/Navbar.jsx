@@ -89,7 +89,7 @@ function Navbar({
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%,-50%)",
-      width: "60%",
+      width: window.innerWidth > 600 ? "60%" : "80%",
       height: "75vh",
       // overflowY: "scroll",
     },
@@ -135,7 +135,7 @@ function Navbar({
       // window.scrollY > 95 ? setSticky(true) : setSticky(false);
       if (window.innerWidth > 600) {
         if (window.scrollY > 95) {
-          console.log("Set it to true");
+          // console.log("Set it to true");
           setSticky(true);
         } else {
           setSticky(false);

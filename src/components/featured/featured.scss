@@ -4,6 +4,9 @@
   // height: 100vh;
   box-sizing: border-box;
   margin: 50px 0;
+  @media (max-width: 600px) {
+    margin: 10px 0;
+  }
   .featured-header {
     display: flex;
     flex-direction: column;
@@ -36,6 +39,9 @@
     max-width: 1400px;
     margin: 0 auto;
     height: 500px;
+    @media (max-width: 600px) {
+      height: 350px;
+    }
     padding: 10px 10px 40px 10px;
 
     .swiper-button-next {

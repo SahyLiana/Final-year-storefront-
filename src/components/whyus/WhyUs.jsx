@@ -41,9 +41,9 @@ function WhyUs({ myRef }) {
     AOS.init({ duration: 500 });
   }, []);
 
-  const CardElts = whyArray.map((card, key) => (
-    <React.Suspense>
-      <Card key={key} title={card.title} logo={card.logo} text={card.text} />
+  const CardElts = whyArray.map((card) => (
+    <React.Suspense key={card.id}>
+      <Card title={card.title} logo={card.logo} text={card.text} />
     </React.Suspense>
   ));
 

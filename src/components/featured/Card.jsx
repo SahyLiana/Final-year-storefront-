@@ -24,7 +24,7 @@ function Card({ product }) {
             <span style={{ textDecoration: "line-through", color: "orange" }}>
               {product.oldPrice !== null && `$${product.oldPrice}`}
             </span>
-            <span style={{ fontSize: "25px" }}>${product.price}</span>
+            <span className="price">${product.price}</span>
           </p>
         </div>
       </Link>
