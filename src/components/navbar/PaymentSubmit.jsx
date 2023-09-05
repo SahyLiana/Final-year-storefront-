@@ -8,6 +8,7 @@ function PaymentSubmit({
   loading,
   modalCarts = { modalCarts },
   total = { total },
+  uuid = { uuid },
 }) {
   return (
     <form onSubmit={handleSubmitPayment} className="modal-container">
@@ -17,6 +18,7 @@ function PaymentSubmit({
           x
         </button>
       </div>
+      <p>TransactionID:{uuid}</p>
       <table>
         <thead>
           <tr>

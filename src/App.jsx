@@ -6,7 +6,9 @@ import {
   Route,
 } from "react-router-dom";
 import Layout from "./components/Layout";
+import Transaction from "./pages/Transaction/Transaction";
 import Home from "./components/home/Home";
+import SearchTransaction from "./pages/Transaction/SearchTransaction";
 // import Phones from "./components/phones/Phones";
 // import Computers from "./components/computers/Computers";
 // import Others from "./components/Others/Others";
@@ -33,9 +35,11 @@ function App() {
           }
           path="products/:category"
         />
+        <Route element={<SearchTransaction />} path="mytransaction" />
 
         {/* <Route element={<Products />} path="products/:category" /> */}
         <Route element={<Product />} path="product/:id" />
+        <Route element={<Transaction />} path="transaction/:id" />
         {/* <Route
           element={
             <React.Suspense fallback={<h1>Loading...</h1>}>

@@ -1,5 +1,11 @@
 import React, { Fragment } from "react";
-import { Link, useLocation, useSearchParams, NavLink } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useSearchParams,
+  NavLink,
+  useNavigate,
+} from "react-router-dom";
 // import { BiSearch } from "react-icons/bi";
 import "./navbar.scss";
 import { AiOutlineBars } from "react-icons/ai";
@@ -9,6 +15,7 @@ import Axios from "axios";
 import Modal from "react-modal";
 import { useSnackbar, enqueueSnackbar } from "notistack";
 import PaymentSubmit from "./PaymentSubmit";
+import { v4 as uuidv4 } from "uuid";
 const PaymentMenu = React.lazy(() => import("./PaymentMenu"));
 
 // function useHookWithRefCallback() {
@@ -46,10 +53,12 @@ function Navbar({
   const menuEl = React.useRef();
   const [loading, setLoading] = React.useState(false);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const [uuid, setUuid] = React.useState("");
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [myDetails, setMyDetails] = React.useState({});
-  const [mywidth, setWidth] = React.useState(window.innerWidth);
+  // const [mywidth, setWidth] = React.useState(window.innerWidth);
+  const Navigate = useNavigate();
 
   // React.useLayoutEffect(() => {
   //   console.log("Layout effect");
@@ -66,6 +75,7 @@ function Navbar({
   // console.log(mywidth);
 
   function openModal() {
+    setUuid(`transaction-${uuidv4()}`);
     setIsOpen(true);
   }
 
@@ -266,9 +276,10 @@ function Navbar({
         {
           myCarts: cartElts,
           myDetails: myDetails,
+          transactionID: uuid,
         }
       );
-      enqueueSnackbar("Paymen success", {
+      enqueueSnackbar("Payment success", {
         variant: "success",
         action: (key) => (
           <Fragment>
@@ -286,6 +297,7 @@ function Navbar({
           </Fragment>
         ),
       });
+      Navigate(`/transaction/${uuid}`);
     } catch (error) {
       enqueueSnackbar("Payment failed", {
         variant: "error",
@@ -315,7 +327,10 @@ function Navbar({
   return (
     <>
       <div className={sticky ? "navbar active" : "navbar"}>
-        <div className="logo">
+        <div
+          className="logo"
+          style={location.pathname !== "/" ? { flex: 1 } : { flex: 2 }}
+        >
           <Link style={{ display: "block" }} to="/">
             <span
               style={{
@@ -365,6 +380,13 @@ function Navbar({
             to={`products/Others`}
           >
             OTHERS
+          </NavLink>
+
+          <NavLink
+            style={({ isActive }) => (isActive ? myStyle : null)}
+            to={"mytransaction"}
+          >
+            MY TRANSACTION
           </NavLink>
         </div>
 
@@ -422,6 +444,18 @@ function Navbar({
           >
             COMPUTERS
           </NavLink>
+          <NavLink
+            style={({ isActive }) => (isActive ? myStyle : null)}
+            to={`products/Others`}
+          >
+            OTHERS
+          </NavLink>
+          <NavLink
+            style={({ isActive }) => (isActive ? myStyle : null)}
+            to={"mytransaction"}
+          >
+            MY TRANSACTION
+          </NavLink>
         </div>
       )}
 
@@ -456,6 +490,7 @@ function Navbar({
         overlayClassName="overlay"
       >
         <PaymentSubmit
+          uuid={uuid}
           handleSubmitPayment={handleSubmitPayment}
           subtitle={subtitle}
           closeModal={closeModal}
