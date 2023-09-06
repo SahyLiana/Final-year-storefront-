@@ -1,4 +1,14 @@
 import React from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+// import Chatbot from "react-chatbot-kit";
+// import ActionProvider from "./ActionProvider";
+// import MessageParser from "./MessageParser";
+// import config from "./config";
+import ChatBot from "./Chatbot";
+import { TbMessageChatbot } from "react-icons/Tb";
+
+import "./layout.scss";
 // import Footer from "./footer/Footer";
 const Footer = React.lazy(() => import("./footer/Footer"));
 import { Outlet } from "react-router-dom";
@@ -8,6 +18,7 @@ const Navbar = React.lazy(() => import("./navbar/Navbar"));
 
 function Layout() {
   // const ref = React.useRef();
+  const [showBot, setShowBot] = React.useState(false);
   const home = React.useRef(null);
   const categories = React.useRef(null);
   const featured = React.useRef(null);
@@ -34,7 +45,7 @@ function Layout() {
     });
   };
   return (
-    <div>
+    <div style={{ position: "relative" }}>
       <React.Suspense>
         <Navbar
           // ref={ref}
@@ -69,6 +80,33 @@ function Layout() {
           setProduct,
         ]}
       />
+      {/* <div className="App-header">
+        <Chatbot
+          config={config}
+          messageParser={MessageParser}
+          actionProvider={ActionProvider}
+        />
+      </div> */}
+
+      <div className="chatbot-container">
+        <button
+          onClick={() => {
+            setShowBot((prevState) => !prevState);
+            AOS.init({ duration: 600 });
+          }}
+          className="show-chat-btn"
+        >
+          <TbMessageChatbot />
+        </button>
+        {showBot && (
+          <div data-aos="fade-right" className="bot">
+            <ChatBot />
+          </div>
+        )}
+
+        {/* {showBot && <ChatBot className="bot" />} */}
+      </div>
+
       <React.Suspense>
         <Footer />
       </React.Suspense>
