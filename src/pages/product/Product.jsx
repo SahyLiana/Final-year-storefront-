@@ -245,6 +245,7 @@ function Product() {
             onChange={handleChange}
             type="number"
             name="quantity"
+            disabled={product.quantity === 0}
             min={0}
           />
           <button
