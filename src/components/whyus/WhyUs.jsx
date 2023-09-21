@@ -15,25 +15,25 @@ function WhyUs({ myRef }) {
       id: 1,
       title: "Fast Delivery",
       logo: <FaTruck />,
-      text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa nostrum sit ab illum incidunt nobis unde molestiae repudiandae? Rem libero quae minus vel corrupti ab delectus nulla nisi expedita quos.",
+      text: "Our e-commerce platform is committed to providing swift and efficient delivery services, ensuring your products reach you in record time.",
     },
     {
       id: 2,
       title: "Free Shipping",
       logo: <GoContainer />,
-      text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa nostrum sit ab illum incidunt nobis unde molestiae repudiandae? Rem libero quae minus vel corrupti ab delectus nulla nisi expedita quos.",
+      text: "Enjoy the convenience of free delivery on all orders, because at FindI, we believe in making your shopping experience hassle-free.",
     },
     {
       id: 3,
       title: "Secure Checkout",
       logo: <BsShieldShaded />,
-      text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa nostrum sit ab illum incidunt nobis unde molestiae repudiandae? Rem libero quae minus vel corrupti ab delectus nulla nisi expedita quos.",
+      text: "Our e-commerce platform employs industry-leading encryption technology to ensure a secure checkout process, safeguarding your personal and payment information from unauthorized access.",
     },
     {
       id: 4,
       title: "Easy Returns",
       logo: <BiCartDownload />,
-      text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa nostrum sit ab illum incidunt nobis unde molestiae repudiandae? Rem libero quae minus vel corrupti ab delectus nulla nisi expedita quos.",
+      text: "With just a few clicks, you can request a return for your online purchases, making the return experience simple and convenient",
     },
   ];
 

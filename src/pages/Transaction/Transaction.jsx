@@ -62,11 +62,6 @@ function Transaction() {
             <button className="save" onClick={() => handlePrint()}>
               Save
             </button>
-            {transaction.status === "Pending" && (
-              <>
-                <div className="right-header"></div>
-              </>
-            )}
           </div>
           <div className="details-container">
             <table className="details">
@@ -74,7 +69,7 @@ function Transaction() {
                 <tr>
                   <td> Transaction ID:</td>
                   <td>
-                    <span>{transaction.transactionID}</span>
+                    <span>{transaction.transactionID && handlePrint()}</span>
                   </td>
                 </tr>
                 <tr>
@@ -86,7 +81,9 @@ function Transaction() {
                 <tr>
                   <td>Status:</td>
                   <td>
-                    <span>{transaction.status}</span>
+                    <span style={{ color: "goldenrod", fontWeight: "bold" }}>
+                      {transaction.status}
+                    </span>
                   </td>
                 </tr>
               </tbody>
