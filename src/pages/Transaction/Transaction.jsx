@@ -168,7 +168,11 @@ function Transaction() {
               </table>
             </div>
             <div className="payment">
-              <h4>Payment made</h4>
+              <h4>
+                {transaction.status === "Cancelled"
+                  ? "Payment cancelled"
+                  : "Payment made"}
+              </h4>
             </div>
           </>
         </>
