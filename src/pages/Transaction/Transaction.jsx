@@ -2,8 +2,9 @@ import React from "react";
 import "./transaction.scss";
 import { useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
+import QRCode from "react-qr-code";
 import Axios from "axios";
-// import { FaSave } from "react-icons/Fa";
+import BarCode from "react-barcode";
 
 function Transaction() {
   const { id } = useParams();
@@ -69,7 +70,11 @@ function Transaction() {
                 <tr>
                   <td> Transaction ID:</td>
                   <td>
-                    <span>{transaction.transactionID && handlePrint()}</span>
+                    <span>
+                      {transaction.transactionID
+                        ? (handlePrint(), transaction.transactionID)
+                        : ""}
+                    </span>
                   </td>
                 </tr>
                 <tr>
@@ -150,6 +155,13 @@ function Transaction() {
               </tbody>
             </table>
             <div className="calculate-total">
+              <div className="code">
+                <QRCode
+                  style={{ height: "100px", width: "100px" }}
+                  value={transaction.transactionID}
+                />
+              </div>
+
               <table>
                 <tbody>
                   <tr>
@@ -173,6 +185,16 @@ function Transaction() {
                   ? "Payment cancelled"
                   : "Payment made"}
               </h4>
+            </div>
+            <div className="barcode">
+              <BarCode
+                width="1"
+                background="white"
+                height="30px"
+                className="barcode"
+                value={transaction.transactionID}
+                fontSize="12px"
+              />
             </div>
           </>
         </>
