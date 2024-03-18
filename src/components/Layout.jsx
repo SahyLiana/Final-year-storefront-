@@ -44,6 +44,7 @@ function Layout() {
       behavior: "smooth",
     });
   };
+  //C:\Users\LENOVO\.vscode\extensions
   return (
     <div style={{ position: "relative" }}>
       <React.Suspense>

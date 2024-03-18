@@ -158,7 +158,13 @@ function Transaction() {
               <div className="code">
                 <QRCode
                   style={{ height: "100px", width: "100px" }}
-                  value={transaction.transactionID}
+                  value={`ID:${transaction.transactionID}
+                  NAME:${transaction.name} 
+                  CONTACT:${transaction.phone}
+                  ADDRESS:${transaction.address}
+                  TOTAL:${transaction.total}
+                  TIME:${transaction.date}
+                  `}
                 />
               </div>
 
